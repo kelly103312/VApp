@@ -3,11 +3,11 @@
       <form class="" @submit.prevent="submit">
         <div class="form-group">
           <label class="form-label"> Usuario </label>
-          <input class="form-control" type="text">
+          <input class="form-control" type="text" v-model="user.user">
         </div>
         <div class="form-group">
           <label class="form-label"> Contraseña </label>
-          <input class="form-control" type="password">
+          <input class="form-control" type="password" v-model="user.password">
         </div>
         <div class="mt-4">
           <button type="submit" class="btn btn-success">Ingresar</button>
@@ -17,17 +17,22 @@
   </template>
   
   <script>
+import { User } from '@/core/models/User';
+
   export default {
     name: 'LoginComponent',
+    data(){
+      let user = new User("","");
+      return user;
+    },
     methods: {
       submit() {
-        console.log("Holi")
+        console.log(this.user)
       }
     }
   }
   </script>
   
-  <!-- Add "scoped" attribute to limit CSS to this component only -->
   <style scoped>
  
   </style>
