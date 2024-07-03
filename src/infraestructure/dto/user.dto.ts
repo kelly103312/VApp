@@ -1,4 +1,4 @@
 export interface UserDTO{
-    usuario:string,
+    user:string,
     password:string
 }

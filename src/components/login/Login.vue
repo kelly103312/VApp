@@ -22,12 +22,13 @@ import { User } from '@/core/models/User';
   export default {
     name: 'LoginComponent',
     data(){
-      let user = new User("","");
-      return user;
+      return {
+        user: new User('', ''),
+      };
     },
     methods: {
       submit() {
-        console.log(this.user)
+        console.log(this.user.getUser())
       }
     }
   }
