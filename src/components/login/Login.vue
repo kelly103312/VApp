@@ -17,18 +17,42 @@
   </template>
   
   <script>
+//import { UserRepository } from '@/core/Irepositories/user.repository';
 import { User } from '@/core/models/User';
+import { inject } from 'vue';
 
   export default {
     name: 'LoginComponent',
     data(){
       return {
-        user: new User('', ''),
+        user: new User('', '')
       };
     },
+    setup() {
+      const userRepository = inject('userRepository');
+        if (!userRepository) {
+          throw new Error('userRepository injection failed');
+        }
+      return { userRepository };
+    
+    },
     methods: {
-      submit() {
+      handleLogin() {
         console.log(this.user.getUser())
+        this.userRepository.login()
+      },
+      async submit() {
+        if (this.userRepository) {
+          console.log("submit")
+          this.loading = true;
+          try {
+            this.user = await this.userRepository.login(this.user.getUser(),this.user.getPassword());
+          } catch (error) {
+            this.error = error.message;
+          } finally {
+            this.loading = false;
+          }
+        }
       }
     }
   }
